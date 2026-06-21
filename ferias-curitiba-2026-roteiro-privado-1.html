@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Férias em Curitiba 2026</title>
+<style>
+:root {
+  --bg: #f7f4ef;
+  --card: #ffffff;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --accent: #0f766e;
+  --accent2: #f97316;
+  --soft: #e6fffb;
+  --line: #e5e7eb;
+  --danger: #b45309;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--ink); }
+.lock {
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  background: radial-gradient(circle at top left, #dff7ef, transparent 35%), radial-gradient(circle at bottom right, #ffe6cc, transparent 35%), var(--bg);
+}
+.lock-card { width: min(520px, 100%); background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:28px; padding:28px; box-shadow: 0 20px 60px rgba(0,0,0,.12); }
+.lock h1 { margin:0 0 8px; font-size: 34px; }
+.lock p { color:var(--muted); line-height:1.5; }
+input, textarea { width:100%; border:1px solid var(--line); border-radius:14px; padding:12px 14px; font: inherit; background:white; }
+button { border:0; border-radius:14px; padding:12px 16px; font-weight:700; cursor:pointer; background:var(--accent); color:white; }
+button.secondary { background:#111827; }
+button.ghost { background:#eef2f7; color:#111827; }
+.app { display:none; }
+header.hero { padding:28px 20px 18px; background:linear-gradient(135deg, #0f766e, #115e59); color:white; }
+.hero-inner { max-width:1100px; margin:0 auto; }
+.hero h1 { margin:0; font-size: clamp(28px, 5vw, 52px); letter-spacing:-1px; }
+.hero p { max-width:720px; opacity:.92; line-height:1.5; }
+.top-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+.top-actions button { background:white; color:#0f766e; }
+main { max-width:1100px; margin:0 auto; padding:20px; }
+.nav-days { display:flex; gap:8px; overflow:auto; padding:12px 0 18px; position:sticky; top:0; background:rgba(247,244,239,.95); backdrop-filter: blur(10px); z-index:5; }
+.nav-days button { white-space:nowrap; background:white; color:var(--ink); border:1px solid var(--line); padding:10px 12px; }
+.nav-days button.active { background:var(--accent); color:white; }
+.grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+.day-card { background:var(--card); border:1px solid var(--line); border-radius:24px; padding:18px; box-shadow: 0 6px 24px rgba(0,0,0,.05); margin-bottom:18px; }
+.day-title { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:14px; }
+.day-title h2 { margin:0; font-size:28px; }
+.badge { display:inline-block; background:#ecfeff; color:#0f766e; padding:6px 10px; border-radius:999px; font-size:13px; font-weight:700; }
+.slot { border:1px solid var(--line); border-radius:18px; padding:14px; background:#fafafa; min-height:140px; }
+.slot h3 { margin:0 0 8px; font-size:18px; color:var(--accent); }
+.slot .content { white-space:pre-wrap; line-height:1.42; font-size:14px; }
+.empty { color:#9ca3af; font-style:italic; }
+.tools { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.tools a, .tools button { font-size:13px; padding:9px 10px; border-radius:12px; text-decoration:none; display:inline-block; }
+.tools a { color:white; background:var(--accent2); font-weight:700; }
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0; }
+.kpi { background:white; border:1px solid var(--line); border-radius:20px; padding:16px; }
+.kpi strong { display:block; font-size:28px; color:var(--accent); }
+.checklist { background:white; border:1px solid var(--line); border-radius:24px; padding:18px; margin:18px 0; }
+.checklist h2 { margin-top:0; }
+.check-item { display:flex; gap:10px; align-items:flex-start; padding:7px 0; }
+.check-item input { width:auto; margin-top:4px; }
+.footer { color:var(--muted); padding:30px 0 50px; font-size:13px; }
+.notice { background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; padding:12px 14px; border-radius:16px; margin:12px 0; line-height:1.4; }
+@media (max-width: 800px) {
+  .grid { grid-template-columns:1fr; }
+  .kpis { grid-template-columns:repeat(2,1fr); }
+  .day-title { flex-direction:column; }
+}
+@media print {
+  .lock, .nav-days, .top-actions, .notice { display:none !important; }
+  .app { display:block !important; }
+  body { background:white; }
+  .day-card { break-inside: avoid; box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<section class="lock" id="lock">
+  <div class="lock-card">
+    <h1>🌲 Férias em Curitiba</h1>
+    <p>Roteiro privado da Ana, Leo e Biel — 04 a 12 de julho de 2026.</p>
+    <p>Digite a senha da família para abrir o roteiro.</p>
+    <input id="pass" type="password" placeholder="Senha" autocomplete="current-password" />
+    <div style="display:flex; gap:10px; margin-top:12px;">
+      <button onclick="unlock()">Entrar</button>
+      <button class="ghost" onclick="document.getElementById('pass').value=''">Limpar</button>
+    </div>
+    <div class="notice">Privacidade: esta proteção é uma barreira simples no arquivo HTML. Para acesso realmente restrito na internet, hospede com login/senha em Google Sites privado, Notion restrito, Cloudflare Access, Netlify/Vercel com autenticação ou similar.</div>
+  </div>
+</section>
+<div class="app" id="app">
+<header class="hero">
+  <div class="hero-inner">
+    <span class="badge">Ana + Leo + Biel</span>
+    <h1>Roteiro Férias Curitiba 2026</h1>
+    <p>Uma semana com Serra do Mar, parques, museus e gastronomia curitibana.</p>
+    <div class="top-actions">
+      <button onclick="window.print()">Imprimir / salvar PDF</button>
+      <button onclick="lockAgain()">Bloquear</button>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="kpis">
+    <div class="kpi"><strong>9</strong>dias</div>
+    <div class="kpi"><strong>3</strong>viajantes</div>
+    <div class="kpi"><strong>🚂</strong>trem para Morretes</div>
+    <div class="kpi"><strong>🍽️</strong>roteiro gastronômico</div>
+  </section>
+  <section class="checklist">
+    <h2>Checklist rápido</h2>
+    <div id="checklist"></div>
+  </section>
+  <nav class="nav-days" id="nav"></nav>
+  <section id="days"></section>
+  <div class="footer">Criado a partir do arquivo “Roteiro Férias Curitiba 2026.xlsx”.</div>
+</main>
+</div>
+<script>
+const PASSCODE = "curitiba2026";
+const itinerary = [{"weekday": "Sábado", "date": "04/07/2026", "iso": "2026-07-04", "slots": {"Manhã": "Café da mnahã: Dona Deola 6h30\n\nSão Paulo - Curitiba\nMirante da Serra do Cafezal (perto das 11h)\n📍 Latitude: -24.1357\n📍 Longitude: -47.4468\nO Mirante da Serra do Cafezal é um ponto panorâmico localizado em Miracatu, às margens da Serra do Cafezal, trecho montanhoso da rodovia Régis Bittencourt (BR-116). O local oferece vista privilegiada das curvas e da vegetação da serra, sendo uma parada popular entre viajantes e amantes de fotografia.\nAcesso: Pela rodovia Régis Bittencourt, sentido São Paulo–Curitiba\nAtração principal: Vista panorâmica da Serra do Cafezal\n", "Tarde": "14h: FUJII COZINHA JAPONESA 📍 Endereço:\nMercado Municipal de Curitiba – Box 194\nAv. Sete de Setembro, 1865 – Centro, Curitiba.\n\nPasseio Mercado Municipal\n\nCheck in @Quality Hotel Curitiba 📍 Alameda Dom Pedro II, 740 – Batel, Curitiba – PR, CEP 80420-060", "Noite": "Terrazza 40 📍 Endereço:  Rua Padre Anchieta, 1287 – Bigorrilho, Curitiba – PR, 80730-000"}}, {"weekday": "Domingo", "date": "05/07/2026", "iso": "2026-07-05", "slots": {"Manhã": "Vila Velha e Buraco do Padre\nSaída às 07h30 rumo a Ponta Grossa:\n• Arenitos\n• Furnas\n• Lagoa Dourada\n• Buraco do Padre (cachoeira e trilhas leves)\nRetorno previsto: 19h30\n\n\n\n\n\n\n\nAlmoço no Passeio", "Tarde": "", "Noite": "Pão com Bolinho no BAR DO DANTE \n📍 Endereço: Rua Conselheiro Laurindo, 73 – Centro, Curitiba – PR"}}, {"weekday": "Segunda", "date": "06/07/2026", "iso": "2026-07-06", "slots": {"Manhã": "Jardim Botânico de Curitiba (abre 9h)\n📍 Endereço Rua Engenheiro Ostoja Roguski, 690 – Jardim Botânico, Curitiba – PR", "Tarde": "CARNE DE ONÇA\nBarbaran\n📍 Endereço: Rua Doutor Claudino dos Santos, 72 – São Francisco, Curitiba – PR, 80020-170\n\nPARQUE BARIGUI \n📍 Endereço principal\nAvenida Cândido Hartmann, s/nº – Bigorrilho, Curitiba – PR\n(Levar bola de vôlei)\n(Se estiver usando Waze ou Google Maps, basta procurar por \"Parque Barigui\" que levará à entrada principal.)", "Noite": "Rodízio de massas no @Família Mandalosso \n📍 Endereço: Manoel Ribas, 5875 – Santa Felicidade, Curitiba – PR, 82020-000"}}, {"weekday": "Terça", "date": "07/07/2026", "iso": "2026-07-07", "slots": {"Manhã": "Museu Oscar Niemeyer )abre 10h)\n📍 Endereço: Rua Marechal Hermes, 999 – Centro Cívico, Curitiba.", "Tarde": "CARNE AZEDA no Basset Lanches\n📍 Endereço\nRua Comendador Araújo, 499 – Centro/Batel, Curitiba – PR.\n\nPARQUE TANGUA\nRua Oswaldo Maciel, 97 – Taboão, Curitiba – PR", "Noite": "Churrascaria Fogo Forte \n📍 Endereço: Avenida Iguaçu, 1271 – Rebouças, Curitiba – PR, 80250-190"}}, {"weekday": "Quarta", "date": "08/07/2026", "iso": "2026-07-08", "slots": {"Manhã": "Museu Egípcio e Rosacruz\n📍 Endereço: Rua Nicarágua, 2641 – Bacacheri, Curitiba – PR, 82515-260\n\n", "Tarde": "Italiano no  Cantina do Délio Itupava\n📍 Endereço\nRua Itupava, 1094 – Alto da XV, Curitiba – PR, 80045-305\n\nSobremesa no  Banoffi Confeitaria\n📍 Endereço: Rua Itupava, 1099 – Alto da XV, Curitiba – PR, 80045-305\n🕒 Horário de funcionamento\nSegunda a sábado: 10h às 20h\nDomingos e feriados: 11h às 20h\n\n Museu Paranaense\n📍 Endereço:  Rua Kellers, 289 – São Francisco, Curitiba – PR, 80410-100", "Noite": "Oidē (Izakaya = boteco japonês) 📍 Endereço: Rua Brigadeiro Franco, 1845 – Centro, Curitiba – PR, 80420-200."}}, {"weekday": "Quinta", "date": "09/07/2026", "iso": "2026-07-09", "slots": {"Manhã": "Experiência Cultural: Rota Holandesa\nSaída às 07h30 para Carambeí e Castro:\n• Moinho de Castrolanda\n• Parque Histórico de Carambeí\n• Vilarejo com lavandas\n• Café da tarde típico\nRetorno previsto: 19h30Almoço no PasseioZ\n\n\n\n\n\n\nAlmoço no Passeio", "Tarde": "", "Noite": "JOELHO DE PORCO @Nosso Boteco\n📍 Endereço: Rua Vicente Ciccarino, 699 – Santa Felicidade, Curitiba – PR (TEM QUE SER QUINTA)"}}, {"weekday": "Sexta", "date": "10/07/2026", "iso": "2026-07-10", "slots": {"Manhã": "ÓPERA DE ARAME\n📍 Endereço: Rua João Gava, 970 – Abranches, Curitiba – PR, 82130-010", "Tarde": "COSTELÃO CURITIBANO @📍 Endereço:  Rua Chile, 2300 – Rebouças, Curitiba – PR, 80: 20-181\n\nPARQUE TINGUI + MEMORIAL UCRANIANO\n📍 Endereço: Avenida Fredolin Wolf, s/nº – São João, Curitiba – PR\n", "Noite": "OBST\n📍 Endereço\nAlameda Prudente de Moraes, 983 – Centro, Curitiba – PR\n📞 WhatsApp / Reservas\n(41) 98822-2667\nNão é um restaurante tradicional. É uma experiência gastronômica contemporânea, comandada por chefs renomados, com foco em criatividade, ingredientes sazonais e menus que mudam com frequência."}}, {"weekday": "Sábado", "date": "11/07/2026", "iso": "2026-07-11", "slots": {"Manhã": "Pacote Completo: Curitiba – Morretes (Ida de Trem e Volta de Van)\n#Pedido: 147627\n#Reserva: 173385\n#Cliente: Ana Paula Gomes\n#Status-Reserva: Success\n\n- Partida da Estação Rodoferroviária de Curitiba rumo a Morretes, às 8h30;\n- Almoço em Morretes ou Antonina, saboreando o tradicional Barreado com acompanhamentos;\n- Tour panorâmico pelos principais pontos turísticos das cidades - incluindo uma visita ao Parque Temático Hisgeopar;\n- Retorno rodoviário pela Estrada da Graciosa, com chegada prevista às 17h30;", "Tarde": "", "Noite": ""}}, {"weekday": "Domingo", "date": "12/07/2026", "iso": "2026-07-12", "slots": {"Manhã": "Missa - Claudeci\n\nRetorno para São Paulo de carro", "Tarde": "Dois Chefs | Gastronomia\n📍 Rua Shitiro Maeji, 618 – Centro, Registro.\n\n(Sugestão de almoço em REGISTRO se não quiser vir direto)", "Noite": "CASINHA"}}];
+const checklist = [
+ "Confirmar transfer do hotel para a Rodoferroviária no passeio de Morretes",
+ "Levar documentos de todos para o trem",
+ "Salvar voucher da Serra Verde Express offline",
+ "Levar casacos em camadas",
+ "Levar bola de vôlei para o Parque Barigui",
+ "Confirmar se o joelho de porco do Nosso Boteco estará disponível na quinta",
+ "Reservar restaurantes especiais: OBST, Oidē e Terrazza 40, se necessário",
+ "Ver agenda da Ópera de Arame / Planetário perto da viagem"
+];
+
+function normalizeAddress(text) {
+  const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
+  const addr = lines.find(l => l.includes("Rua ") || l.includes("Avenida ") || l.includes("Av.") || l.includes("Alameda ") || l.includes("Praça ") || l.includes("Latitude"));
+  return addr ? addr.replace("📍", "").replace("Endereço:", "").replace("Endereço", "").trim() : "";
+}
+function mapsLink(text) {
+  const coord = text.match(/Latitude:\s*(-?\d+\.\d+)[\s\S]*Longitude:\s*(-?\d+\.\d+)/);
+  if(coord) return `https://waze.com/ul?ll=${coord[1]},${coord[2]}&navigate=yes`;
+  const addr = normalizeAddress(text);
+  if(!addr) return "";
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(addr);
+}
+function renderChecklist() {
+  const el = document.getElementById("checklist");
+  el.innerHTML = checklist.map((item,i)=>`
+    <label class="check-item">
+      <input type="checkbox" data-check="${i}" ${localStorage.getItem("check_"+i)==="1"?"checked":""} onchange="localStorage.setItem('check_'+${i}, this.checked?'1':'0')" />
+      <span>${item}</span>
+    </label>`).join("");
+}
+function render() {
+  renderChecklist();
+  const nav = document.getElementById("nav");
+  nav.innerHTML = itinerary.map((d,i)=>`<button onclick="scrollDay(${i})" id="nav-${i}">${d.weekday} ${d.date.slice(0,5)}</button>`).join("");
+  const holder = document.getElementById("days");
+  holder.innerHTML = itinerary.map((d,i)=>`
+    <article class="day-card" id="day-${i}">
+      <div class="day-title">
+        <div><span class="badge">${d.weekday}</span><h2>${d.date}</h2></div>
+        <button class="ghost" onclick="toggleDone(${i})" id="done-${i}">${localStorage.getItem("done_"+i)==="1"?"✅ Dia feito":"Marcar dia feito"}</button>
+      </div>
+      <div class="grid">
+        ${["Manhã","Tarde","Noite"].map(slot=>slotHTML(d,i,slot)).join("")}
+      </div>
+    </article>`).join("");
+}
+function slotHTML(d,i,slot) {
+  const content = d.slots[slot] || "";
+  const map = mapsLink(content);
+  return `<section class="slot">
+    <h3>${slot}</h3>
+    <div class="content ${content ? "" : "empty"}">${content ? escapeHTML(content) : "Livre / descanso"}</div>
+    <div class="tools">
+      ${map ? `<a target="_blank" href="${map}">Abrir mapa</a>` : ""}
+      <button class="ghost" onclick="copyText(${JSON.stringify(content)})">Copiar</button>
+    </div>
+  </section>`;
+}
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function unlock() {
+  const p = document.getElementById("pass").value.trim();
+  if(p === PASSCODE) {
+    sessionStorage.setItem("curitiba_unlocked","1");
+    document.getElementById("lock").style.display="none";
+    document.getElementById("app").style.display="block";
+    render();
+  } else {
+    alert("Senha incorreta.");
+  }
+}
+function lockAgain() {
+  sessionStorage.removeItem("curitiba_unlocked");
+  document.getElementById("app").style.display="none";
+  document.getElementById("lock").style.display="flex";
+}
+function scrollDay(i) {
+  document.getElementById("day-"+i).scrollIntoView({behavior:"smooth", block:"start"});
+  document.querySelectorAll(".nav-days button").forEach(b=>b.classList.remove("active"));
+  document.getElementById("nav-"+i).classList.add("active");
+}
+function toggleDone(i) {
+  const key = "done_"+i;
+  const val = localStorage.getItem(key)==="1" ? "0" : "1";
+  localStorage.setItem(key,val);
+  document.getElementById("done-"+i).textContent = val==="1" ? "✅ Dia feito" : "Marcar dia feito";
+}
+function copyText(text) {
+  navigator.clipboard.writeText(text || "").then(()=>alert("Copiado!"));
+}
+document.getElementById("pass").addEventListener("keydown", e => { if(e.key==="Enter") unlock(); });
+if(sessionStorage.getItem("curitiba_unlocked")==="1") unlock();
+</script>
+</body>
+</html>
